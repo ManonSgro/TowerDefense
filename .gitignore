@@ -1,0 +1,11 @@
+third-party/
+*.config
+*.files
+*.includes
+*.exe
+*.out
+*.o
+build/
+*.creator*
+*autosave*
+*.zip

@@ -588,6 +588,41 @@ int main(int argc, char** argv){
 	*/
 
 	init_draw(&app);
+	/*** TEST ***/
+	/*vector<char*> textures_path;
+    textures_path.push_back("images/bg_map_1.jpg");
+    textures_path.push_back("images/enemy1.jpg");
+    textures_path.push_back("images/enemy2.jpg");
+    textures_path.push_back("images/enemy3.jpg");
+    textures_path.push_back("images/whale1.jpg");
+    textures_path.push_back("images/whale2.jpg");
+    textures_path.push_back("images/whale3.jpg");
+    textures_path.push_back("images/whale4.jpg");
+    textures_path.push_back("images/installation1.jpg");
+    textures_path.push_back("images/installation2.jpg");
+    textures_path.push_back("images/installation3.jpg");
+    textures_path.push_back("images/bg_menu_1.jpg");
+    textures_path.push_back("images/bg_menu_2.jpg");
+    textures_path.push_back("images/bg_menu_3.jpg");
+    textures_path.push_back("images/bg_menu_4.jpg");
+    textures_path.push_back("images/bg_help.jpg");
+    textures_path.push_back("images/win.jpg");
+    textures_path.push_back("images/bg_gameOver.jpg");
+    textures_path.push_back("images/0.jpg");
+    textures_path.push_back("images/1.jpg");
+    textures_path.push_back("images/2.jpg");
+    textures_path.push_back("images/3.jpg");
+    textures_path.push_back("images/4.jpg");
+    textures_path.push_back("images/5.jpg");
+    textures_path.push_back("images/6.jpg");
+    textures_path.push_back("images/7.jpg");
+    textures_path.push_back("images/8.jpg");
+    textures_path.push_back("images/9.jpg");
+    textures_path.push_back("images/dollar.jpg");
+
+	GLuint textures_id;
+	GLuint textures_id[] = {textures_id};*/
+	/*** Test ***/
 
 	/* Chargement de l'image */
     char image_path[] = "images/bg_map_1.jpg";
@@ -618,6 +653,99 @@ int main(int argc, char** argv){
             return EXIT_FAILURE;
     }
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+	/* Chargement de l'image */
+    char map2_path[] = "images/bg_map_2.jpg";
+    SDL_Surface* map2 = IMG_Load(map2_path);
+    if(NULL == map2) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", map2_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id30;
+    glGenTextures(1, &texture_id30);
+    glBindTexture(GL_TEXTURE_2D, texture_id30);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", map2_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, map2->w, map2->h, 0, format, GL_UNSIGNED_BYTE, map2->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+	/* Chargement de l'image */
+    char map3_path[] = "images/bg_map_3.jpg";
+    SDL_Surface* map3 = IMG_Load(map3_path);
+    if(NULL == map3) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", map3_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id31;
+    glGenTextures(1, &texture_id31);
+    glBindTexture(GL_TEXTURE_2D, texture_id31);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", map3_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, map3->w, map3->h, 0, format, GL_UNSIGNED_BYTE, map3->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+	/* Chargement de l'image */
+    char map4_path[] = "images/bg_map_4.jpg";
+    SDL_Surface* map4 = IMG_Load(map4_path);
+    if(NULL == map4) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", map4_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id32;
+    glGenTextures(1, &texture_id32);
+    glBindTexture(GL_TEXTURE_2D, texture_id32);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", map4_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, map4->w, map4->h, 0, format, GL_UNSIGNED_BYTE, map4->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
 
 
@@ -1312,7 +1440,17 @@ int main(int argc, char** argv){
 
 		}
 		else if (loop == 2){
-		draw_background(texture_id);
+
+			//Draw map
+			if(myPlayer.getPV()>75){
+				draw_background(texture_id);
+			}else if(myPlayer.getPV()>50){
+				draw_background(texture_id30);
+			}else if(myPlayer.getPV()>25){
+				draw_background(texture_id31);
+			}else{
+				draw_background(texture_id32);
+			}
 
 		
 		dessinTour = false;
@@ -1655,13 +1793,8 @@ int main(int argc, char** argv){
 					case SDL_MOUSEMOTION:
 						xMouse = e.button.x;
 						yMouse = e.button.y;
-
-						//printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
-						//printf("Mouse 2 move en : (%f , %f)\n", returnX(e.button.x), returnY(e.button.y));
-						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
 						break;
 					case SDL_KEYDOWN:
-						//touche = e.key.keysym.sym;
 						printf("Touche %d\n", touche);
 						printf("Touche pressee : (code : %d)\n", e.key.keysym.sym);
 						break;
@@ -1696,7 +1829,6 @@ int main(int argc, char** argv){
 			touche = 0;
 			while (SDL_PollEvent(&e)){
 				if (e.type == SDL_QUIT) {
-					//SDL_Log("Program quit after %i ticks", e.quit.timestamp);
 					break;
 				}
 				switch (e.type){
@@ -1708,10 +1840,6 @@ int main(int argc, char** argv){
 					case SDL_MOUSEMOTION:
 						xMouse = e.button.x;
 						yMouse = e.button.y;
-
-						//printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
-						//printf("Mouse 2 move en : (%f , %f)\n", returnX(e.button.x), returnY(e.button.y));
-						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
 						break;
 					case SDL_KEYDOWN:
 						touche = e.key.keysym.sym;
@@ -1742,7 +1870,6 @@ int main(int argc, char** argv){
 			touche = 0;
 			while (SDL_PollEvent(&e)){
 				if (e.type == SDL_QUIT) {
-					//SDL_Log("Program quit after %i ticks", e.quit.timestamp);
 					break;
 				}
 				switch (e.type){
@@ -1754,10 +1881,6 @@ int main(int argc, char** argv){
 					case SDL_MOUSEMOTION:
 						xMouse = e.button.x;
 						yMouse = e.button.y;
-
-						//printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
-						//printf("Mouse 2 move en : (%f , %f)\n", returnX(e.button.x), returnY(e.button.y));
-						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
 						break;
 					case SDL_KEYDOWN:
 						touche = e.key.keysym.sym;

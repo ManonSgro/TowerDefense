@@ -75,7 +75,7 @@ using namespace std;
     glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(x, y, 0.0f);
-	glRotatef(45.0f,0.0f,0.0f,1.0f);
+	glRotatef(-45.0f,0.0f,0.0f,1.0f);
     glPushMatrix();
         glBegin(GL_QUADS);
     
@@ -469,11 +469,16 @@ int main(int argc, char** argv){
 	
 	int position[2];
 	TypeMonster fast(1, 3, weak, 5);
-	TypeMonster resistant(1, 1, strong, 2);
-	TypeMonster powerful(1, 2, medium, 10);
+	TypeMonster resistant(2, 1, strong, 2);
+	TypeMonster powerful(3, 2, medium, 10);
 	std:vector<Monster*> waves;
 	Monster* wave = createWave(fast, 0);
 	waves.push_back(wave);
+
+	vector<TypeMonster> typeMonsters;
+	typeMonsters.push_back(fast);
+	typeMonsters.push_back(resistant);
+	typeMonsters.push_back(powerful);
 
 	Node* myNode = app.map->nodes[4];
 	NodeList* sibling = myNode->connected;
@@ -582,10 +587,10 @@ int main(int argc, char** argv){
 
 
 	/* Chargement de monster */
-    char monster_path[] = "images/enemy1.jpg";
-    SDL_Surface* monster = IMG_Load(monster_path);
-    if(NULL == monster) {
-        fprintf(stderr, "Echec du chargement de l'image %s\n", monster_path);
+    char enemy1_path[] = "images/enemy1.jpg";
+    SDL_Surface* enemy1 = IMG_Load(enemy1_path);
+    if(NULL == enemy1) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", enemy1_path);
         exit(EXIT_FAILURE);
     }
     /* Initialisation de la texture */
@@ -593,7 +598,39 @@ int main(int argc, char** argv){
     glGenTextures(1, &texture_id2);
     glBindTexture(GL_TEXTURE_2D, texture_id2);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, monster->w, monster->h, 0, format, GL_UNSIGNED_BYTE, monster->pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, enemy1->w, enemy1->h, 0, format, GL_UNSIGNED_BYTE, enemy1->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	/* Chargement de monster */
+    char enemy2_path[] = "images/enemy2.jpg";
+    SDL_Surface* enemy2 = IMG_Load(enemy2_path);
+    if(NULL == enemy2) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", enemy2_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id10;
+    glGenTextures(1, &texture_id10);
+    glBindTexture(GL_TEXTURE_2D, texture_id10);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, enemy2->w, enemy2->h, 0, format, GL_UNSIGNED_BYTE, enemy2->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	/* Chargement de monster */
+    char enemy3_path[] = "images/enemy3.jpg";
+    SDL_Surface* enemy3 = IMG_Load(enemy3_path);
+    if(NULL == enemy3) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", enemy3_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id11;
+    glGenTextures(1, &texture_id11);
+    glBindTexture(GL_TEXTURE_2D, texture_id11);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, enemy3->w, enemy3->h, 0, format, GL_UNSIGNED_BYTE, enemy3->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
 
 
@@ -713,6 +750,37 @@ int main(int argc, char** argv){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, installation3->w, installation3->h, 0, format, GL_UNSIGNED_BYTE, installation3->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
 
+	/* Chargement de l'image */
+    /*char image_path[] = "images/bg_map_1.jpg";
+    SDL_Surface* image = IMG_Load(image_path);
+    if(NULL == image) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", image_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    /*GLuint texture_id;
+    glGenTextures(1, &texture_id);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    GLenum format;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", image_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);*/
+
 
 
     
@@ -755,7 +823,91 @@ int main(int argc, char** argv){
 		draw_screen(&app);
 
 		if(loop==1){
-			printf("menu\n");
+			draw_background(texture_id);
+			/*SDL_Event e;
+			while (SDL_PollEvent(&e)){
+				if (e.type == SDL_QUIT) {
+					//SDL_Log("Program quit after %i ticks", e.quit.timestamp);
+					break;
+				}
+				switch (e.type){
+					case SDL_MOUSEBUTTONUP:
+						if ((touche == SDLK_r)||(touche == SDLK_v)||(touche == SDLK_j)||(touche == SDLK_b)){
+							dessinTour = true;
+							dessinInstallation = false;
+						}
+						if ((touche == SDLK_p)||(touche == SDLK_a)||(touche == SDLK_c)){
+							dessinInstallation = true;
+							dessinTour = false;
+						}
+						//if ((e.button.x<app.map->map_data->x-50) && (e.button.x>50) && (e.button.y<app.map->map_data->y-50) && (e.button.y>50)){
+							
+							xTour = e.button.x;
+							yTour = e.button.y;
+							xInstallation = e.button.x;
+							yInstallation = e.button.y;
+						//}
+						printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
+						break;
+					case SDL_KEYDOWN:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche pressee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					case SDL_KEYUP:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche relachee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					default : break;
+				}
+			}
+			// Fermer le jeux
+			if (touche == SDLK_q){
+				loop = 0;
+			}*/
+			/*if ((xTour<app.map->map_data->x-10) && (xTour>10) && (yTour<app.map->map_data->y-10) && (yTour>10)){
+				dessinTour = true;
+			}else{
+				dessinTour = false;
+				//printf("fauxxxx Xtour=%f screen=%d\n", xTour, app.map->map_data->x);
+			}*/
+
+			// end the screen
+			SDL_GL_SwapBuffers( );
+
+			/*time += 10;
+			if(time>=2000){
+				time=0;
+				if(waves.size()>=10){
+					printf("You win !\n");
+					loop = 0;
+				}else{
+					int randTypeMonster = rand()%(3);
+					printf("----RAND TYPE MONSTER : %d\n", randTypeMonster);
+					if(randTypeMonster==0){
+						waves.push_back(createWave(fast, waves.size()));
+					}else if(randTypeMonster==1){
+						waves.push_back(createWave(resistant, waves.size()));
+					}else if(randTypeMonster==2){
+						waves.push_back(createWave(powerful, waves.size()));
+					}
+					randNum = rand()%(101);
+					for(int j=0;j<10;j++){
+						waves[waves.size()-1][j].setCurrentNode(firstNode->id,firstNode->type,firstNode->x,firstNode->y);
+						randNum = rand()*(101);
+						tmpNextNode = app.map->nodes[findFaster(firstNode, distances, randNum)];
+						waves[waves.size()-1][j].setNextNode(tmpNextNode->id, tmpNextNode->x, tmpNextNode->y);
+					}
+				}
+				
+			}
+
+			for(int i=0;i<tours.size();i++){
+				tours[i]->setCounter(tours[i]->getCounter()+10);
+			}*/
+
+			SDL_Delay(10);
 
 		}else{
 		draw_background(texture_id);
@@ -765,7 +917,7 @@ int main(int argc, char** argv){
 		//glColor3d(255,0,0);
 
 	
-		SDL_GL_SwapBuffers();
+		//SDL_GL_SwapBuffers();
 		SDL_Event e;
 		while (SDL_PollEvent(&e)){
 			if (e.type == SDL_QUIT) {
@@ -855,7 +1007,7 @@ int main(int argc, char** argv){
 
 		// Placer une installation
 		if (dessinInstallation == true){
-			check = positionCheck(app.map, xInstallation, yInstallation,0.05);
+			check = positionCheck(app.map, xInstallation, yInstallation,0.2);
 			
 			for (int i=0; i<tours.size();i++){
 				check2 = colisionCheck((int)xInstallation,(int)yInstallation,0.05,(int)tours[i]->getPositionX(),(int)tours[i]->getPositionY(), 0.05);
@@ -984,7 +1136,13 @@ int main(int argc, char** argv){
 		for(int i=0;i<waves.size();i++){
 			for(int j=0;j<10;j++){
 				if(waves[i][j].isAlive()){
-					draw_enemy(texture_id2,returnX(waves[i][j].getPositionX()),returnY(waves[i][j].getPositionY()),0.06f);
+					if(waves[i][j].getIdType() == 1){
+						draw_enemy(texture_id2,returnX(waves[i][j].getPositionX()),returnY(waves[i][j].getPositionY()),0.06f);
+					}else if(waves[i][j].getIdType() == 2){
+						draw_enemy(texture_id10,returnX(waves[i][j].getPositionX()),returnY(waves[i][j].getPositionY()),0.06f);
+					}else{
+						draw_enemy(texture_id11,returnX(waves[i][j].getPositionX()),returnY(waves[i][j].getPositionY()),0.06f);
+					}
 					//draw_circle(returnX(waves[i][j].getPositionX()),returnY(waves[i][j].getPositionY()), 0.02);
 					if(waves[i][j].moveToNode(waves[i][j].getNextNodeX(), waves[i][j].getNextNodeY())){
 						
@@ -1021,7 +1179,15 @@ int main(int argc, char** argv){
 				printf("You win !\n");
 				loop = 0;
 			}else{
-				waves.push_back(createWave(fast, waves.size()));
+				int randTypeMonster = rand()%(3);
+				printf("----RAND TYPE MONSTER : %d\n", randTypeMonster);
+				if(randTypeMonster==0){
+					waves.push_back(createWave(fast, waves.size()));
+				}else if(randTypeMonster==1){
+					waves.push_back(createWave(resistant, waves.size()));
+				}else if(randTypeMonster==2){
+					waves.push_back(createWave(powerful, waves.size()));
+				}
 				randNum = rand()%(101);
 				for(int j=0;j<10;j++){
 					waves[waves.size()-1][j].setCurrentNode(firstNode->id,firstNode->type,firstNode->x,firstNode->y);

@@ -48,6 +48,7 @@ class Monster
 
     int getPV();
     int getSpeed();
+    int getIdType();
     float getPositionX();
     float getPositionY();
     int getIdCurrentNode();

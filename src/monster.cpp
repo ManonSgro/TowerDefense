@@ -68,6 +68,10 @@ int Monster::getSpeed(){
     return this->type.getSpeed();
 }
 
+int Monster::getIdType(){
+    return this->type.getId();
+}
+
 float Monster::getPositionX(){
     return this->x;
 }

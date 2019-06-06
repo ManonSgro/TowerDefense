@@ -333,14 +333,16 @@ bool positionCheck(Map* map, int x, int y, float coeff){
 	return true;	
 }
 
-bool colisionCheck(int x1, int y1, float coeff1, int x2, int y2, float coeff2){
-	if ((((x2-x2*coeff2>=x1-x1*coeff1) && (x2-x2*coeff2<=x1+x1*coeff1)) || ((x2+x2*coeff2>=x1-x1*coeff1) && (x2+x2*coeff2<=x1+x1*coeff1))) && (((y2-y2*coeff2>=y1-y1*coeff1) && (y2-y2*coeff2<=y1+y1*coeff1)) || ((y2+y2*coeff2>=y1+y1*coeff1) && (y2+y2*coeff2<=y1+y1*coeff1)))){
-			printf("CANNOT %f %f %f %f ON %f %f %f %f !!!\n", x1-x1*coeff1, x1+x1*coeff1, y1-y1*coeff1, y1+y1*coeff1,x2-x2*coeff2,x2+x2*coeff2,y2-y2*coeff2,y2+y2*coeff2);
+bool colisionCheck(float x1, float y1, float coeff1, float x2, float y2, float coeff2){
+	if ((((x2-coeff2>=x1-coeff1) && (x2-coeff2<=x1+coeff1)) || ((x2+coeff2>=x1-coeff1) && (x2+coeff2<=x1+coeff1))) && (((y2-coeff2>=y1-coeff1) && (y2-coeff2<=y1+coeff1)) || ((y2+coeff2>=y1-coeff1) && (y2+coeff2<=y1+coeff1)))){
+			//printf("CANNOT %f %f || %f %f entre %f %f et %f %f || %f %f || %f %f entre %f %f et %f %f !!!\n", x2-x2*coeff2, y2-y2*coeff2, x2+x2*coeff2, y2-y2*coeff2, x1-x1*coeff1, y1-y1*coeff1, x1+x1*coeff1, y1-y1*coeff1, x2-x2*coeff2, y2+y2*coeff2,x2+x2*coeff2, y2+y2*coeff2, x1-x1*coeff1, y1+y1*coeff1, x1+x1*coeff1, y1+y1*coeff1);
 			return false;
 		}
-		printf("CANNNN %f %f %f %f ON %f %f %f %f !!!\n", x1-x1*coeff1, x1+x1*coeff1, y1-y1*coeff1, y1+y1*coeff1,x2-x2*coeff2,x2+x2*coeff2,y2-y2*coeff2,y2+y2*coeff2);
+		//printf("CANNNN %f %f %f %f ON %f %f %f %f !!!\n", x1-x1*coeff1, x1+x1*coeff1, y1-y1*coeff1, y1+y1*coeff1,x2-x2*coeff2,x2+x2*coeff2,y2-y2*coeff2,y2+y2*coeff2);
 	return true;	
 }
+
+
 
 int getDistance(Node* origin, Node* destination){
 	int distance = sqrt(pow(destination->x - origin->x, 2) + pow(destination->y - origin->y, 2));
@@ -975,14 +977,26 @@ int main(int argc, char** argv){
 		}
 		// Placer une tour
 		if (dessinTour == true){
-			check = positionCheck(app.map, xTour, yTour,0.12);
+			check = positionCheck(app.map, xTour, yTour,0.1);
 			
+			int testCheck2=0;
 			for (int i=0; i<tours.size();i++){
-				check2 = colisionCheck((int)xTour,(int)yTour,0.12,(int)tours[i]->getPositionX(),(int)tours[i]->getPositionY(), 0.12);
+				check2 = colisionCheck(returnX2(xTour, app),returnY2(yTour, app),0.1,returnX2(tours[i]->getPositionX(), app),returnY2(tours[i]->getPositionY(), app), 0.1);
+				//printf("---- blabla test %d.\n", testCheck2);
+				if (check2 == false){
+					testCheck2++;
+				}
+			}	
+			if(testCheck2>0){
+				check2 = false;
+			}
+
+			for (int i=0; i<installations.size();i++){
+				check2 = colisionCheck(returnX2(xTour, app),returnY2(yTour, app),0.1,returnX2(installations[i]->getPositionX(), app),returnY2(installations[i]->getPositionY(), app), 0.07);
 				if (check2 == false){
 					break;
 				}
-			}	
+			}
 			//check2 = colisionCheck(myTower.getPositionX(),myTower.getPositionY(), 0.05,myTower2.getPositionX(),myTower2.getPositionY(), 0.05);	
 			if ((check == true)&&(check2 == true)){
 
@@ -1009,17 +1023,17 @@ int main(int argc, char** argv){
 		}	
 
 		// Placer une installation
-		/*if (dessinInstallation == true){
+		if (dessinInstallation == true){
 			check = positionCheck(app.map, xInstallation, yInstallation,0.07);
 			
 			for (int i=0; i<tours.size();i++){
-				check2 = colisionCheck((int)xInstallation,(int)yInstallation,0.07,(int)tours[i]->getPositionX(),(int)tours[i]->getPositionY(), 0.1);
+				check2 = colisionCheck(returnX2(xInstallation, app),returnY2(yInstallation, app),0.07,returnX2(tours[i]->getPositionX(), app),returnY2(tours[i]->getPositionY(), app), 0.1);
 				if (check2 == false){
 					break;
 				}
 			}
 			for (int i=0; i<installations.size();i++){
-				check2 = colisionCheck((int)xInstallation,(int)yInstallation,0.07,(int)installations[i]->getPositionX(),(int)installations[i]->getPositionY(), 0.1);
+				check2 = colisionCheck(returnX2(xInstallation, app),returnY2(yInstallation, app),0.07,returnX2(installations[i]->getPositionX(), app),returnY2(installations[i]->getPositionY(), app), 0.07);
 				if (check2 == false){
 					break;
 				}
@@ -1060,7 +1074,7 @@ int main(int argc, char** argv){
 				installations[installations.size()-1]->setPosition(xInstallation,yInstallation);
 
 			}
-		}*/
+		}
 
 
 		for (int i=0; i<tours.size();i++){
@@ -1081,7 +1095,7 @@ int main(int argc, char** argv){
 				//glColor3d(0,0,255);	
 				draw_elem(texture_id6,returnX2(tours[i]->getPositionX(),app),returnY2(tours[i]->getPositionY(),app),0.1f);
 			}
-			draw_circle(returnX2(tours[i]->getPositionX(),app),returnY2(tours[i]->getPositionY(),app), 0.12);	
+			draw_circle(returnX2(tours[i]->getPositionX(),app),returnY2(tours[i]->getPositionY(),app), 0.1);	
 		}
 
 		for (int i=0; i<installations.size();i++){
@@ -1157,7 +1171,7 @@ int main(int argc, char** argv){
 							myPlayer.setPV(myPlayer.getPV()-waves[i][j].getDegats());
 							if(!myPlayer.isAlive()){
 								printf("You lose !\n");
-								loop=0;
+								//loop=0;
 							}
 						}else{
 							randNum = rand()%(101);

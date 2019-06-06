@@ -43,10 +43,6 @@ void MapInitNodes(Map* map, int nodes_count)
 
 void NodeInit(Node *node)
 {
-	//node->successors = nullptr;
-	//node->successors.push_back(0);
-	//node->successors;
-	//node->successors_size = 0;
 	node->connected = NULL;
 	node->type = STANDARD;
 	node->x = node->y = 0;
@@ -57,19 +53,11 @@ void NodeListInit(NodeList *list, Node *node)
 	list->node = node;
 	list->next = NULL;
 }
-/*
-void InsertLastNodeSuccessor(Node* node, Node* successor){
-	node->successors[node->successors_size] = successor;
-	node->successors_size = node->successors_size+1;
-}*/
 			
 void NodeAddConnection(Node *origin, Node *destination)
 {
 	NodeList* newNode;
 	NEW_N_INIT(newNode, NodeList, destination);
-	//origin->successors[0] = destination;
-	//InsertLastNodeSuccessor(origin, destination);
-	//origin->successors[0] = destination;
 	newNode->next = origin->connected;
 	origin->connected = newNode;
 }
@@ -162,5 +150,5 @@ bool PPMPixelEqual2(const PPMPixel *p1, const PPMPixel *p2, unsigned int error_m
 	unsigned int diff = abs(p1->blue-p2->blue) +
 			abs(p1->green-p2->green) +
 			abs(p1->red-p1->red);
-	return diff < error_margin; //error margin ne doit pas être trop petit pour la map03
+	return diff < error_margin;
 }

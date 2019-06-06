@@ -115,7 +115,6 @@ void Tower::setPortee(int portee){
 
 bool Tower::isInShootingRange(float x, float y){
     int distance = sqrt(pow(this->x - x, 2) + pow(this->y - y, 2));
-    //return (x<(this->x+this->portee) && x>(this->x-this->portee) && y<(this->y+this->portee) && y>(this->y-this->portee));
     return (distance<this->portee);
 }
 

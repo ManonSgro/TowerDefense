@@ -7,7 +7,7 @@ using namespace std;
 
 TypeMonster::TypeMonster(int id, int speed, Resistance resistance, int degats) : id(id), speed(speed), resistance(resistance), degats(degats)
 {
-    cout << "Create new type of monster with id=" << id << " and speed="<< speed << endl;
+    //cout << "Create new type of monster with id=" << id << " and speed="<< speed << endl;
 }
 
 int TypeMonster::getId(){
@@ -156,21 +156,8 @@ bool Monster::moveToNode(int x, int y){
 	}
 	float newY = coef*(newX)+cste;
 	this->setPosition(newX+randNum, newY+randNum);
-    //this->setPosition(newX, newY);
 	if(this->x == x && this->y == y){ //collision
         return true;
     }
 	return false;
 }
-/*
-Wave::Wave(int id, Monster* monsters[]) : id(id), monsters(monsters)
-{
-    cout << "Create new wave with : \nid=" << id << "\nFirst monster=" << monsters[0]->getPV() << endl; 
-}
-
-Monster::~Wave(){};
-
-void Wave::createWave(){
-    this->id = id;
-    this->
-}*/

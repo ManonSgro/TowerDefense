@@ -98,7 +98,7 @@ void sscanf_array(const char* buff, int* numbers, int* numbers_count)
 }
 
 
-
+// Read itd and set data/nodes
 Map* read_itd(const char* filename)
 {
 	char buff[HIGHMAXSIZE];
@@ -184,6 +184,7 @@ Map* read_itd(const char* filename)
 	return map;
 }
 
+// Check ways
 void bresenham_x_y(int start_x, int start_y, int end_x, int end_y,
 									 void (*visitor)(int, int, int, void**), int argc, void** argv)
 {
@@ -226,6 +227,7 @@ void bresenham_x_y(int start_x, int start_y, int end_x, int end_y,
 	(*visitor)(x, y, argc, argv);
 }
 
+// Check ways
 void bresenham_y_x(int start_x, int start_y, int end_x, int end_y,
 									 void (*visitor)(int, int, int, void**), int argc, void** argv)
 {
@@ -268,6 +270,7 @@ void bresenham_y_x(int start_x, int start_y, int end_x, int end_y,
 	(*visitor)(x, y, argc, argv);
 }
 
+// Check zones
 void check_pixel(int x, int y, int argc, void** argv)
 {
 	const Map* map = (const Map*)argv[0];
@@ -276,7 +279,7 @@ void check_pixel(int x, int y, int argc, void** argv)
 	const PPMPixel* current = MapGetPixel(map, x, y);
 	debug("Color (%u, %u, %u)  at (%d, %d)", current->red, current->green, current->blue, x, y);
 
-	if (!PPMPixelEqual2(current, colors+(*color_i), 100)) //ici on vérifie que lécart entre la couleur précédente et la nouvelle (un écart trop petit fait boguer la map03)
+	if (!PPMPixelEqual2(current, colors+(*color_i), 100)) // check between two colors
 	{
 			++(*color_i);
 			if ((*color_i)==3 || !PPMPixelEqual2(current, colors+(*color_i), 100))
@@ -292,6 +295,7 @@ void check_pixel(int x, int y, int argc, void** argv)
 	}
 }
 
+// Check ways
 void check_nodes_way(const Map *map, const Node* origin, const Node* destination)
 {
 	PPMPixel dest_color = MapGetNodeTypeColor(map, destination->type);
@@ -329,6 +333,7 @@ void check_nodes_way(const Map *map, const Node* origin, const Node* destination
 	fflush(stdout);
 }
 
+// Check all map conditions
 void check_map(const Map *map)
 {
 	if (!map)
@@ -342,19 +347,8 @@ void check_map(const Map *map)
 		printf("Check node x=%d y=%d type=%d\n", node->x, node->y, node->type);
 		const PPMPixel* pixel = MapGetPixel(map, node->x, node->y);
 		printf("Color = %d %d %d\n", pixel->red, pixel->green, pixel->blue);
-		//printf("Map data = x:%d y:%d\n", map->map_data->x, map->map_data->y);
 		printf("Data size = %d\n", sizeof(map->map_data->data));
 		printf("Data index : %d\n", node->x*map->map_data->x+node->y);
-		//printf("Test : %d\n", node->);
-		//PPMPixel* pixelTest = &map->map_data->data[450*map->map_data->x+100];
-		//printf("Data 0 : %d\n", pixelTest->green);
-		/*if (node->x >= map->map_data->x or node->y >= map->map_data->y)
-		{
-			fprintf(stderr, "Cannot access to this pixel (%d, %d)", node->x, node->y);
-		}else{
-			PPMPixel* myPixel = &map->map_data->data[node->x*map->map_data->x+node->y];
-			printf("Color MyPixel = %d %d %d\n", myPixel->red, myPixel->green, myPixel->blue);
-		}*/
 		PPMPixel node_type_color = MapGetNodeTypeColor(map, node->type);
 		if (!PPMPixelEqual(pixel, &node_type_color))
 		{

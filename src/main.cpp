@@ -468,9 +468,11 @@ int main(int argc, char** argv){
 	Player myPlayer(100);
 	
 	int position[2];
-	TypeMonster basique(1, 1, strong, 10);
+	TypeMonster fast(1, 3, weak, 5);
+	TypeMonster resistant(1, 1, strong, 2);
+	TypeMonster powerful(1, 2, medium, 10);
 	std:vector<Monster*> waves;
-	Monster* wave = createWave(basique, 0);
+	Monster* wave = createWave(fast, 0);
 	waves.push_back(wave);
 
 	Node* myNode = app.map->nodes[4];
@@ -662,8 +664,8 @@ int main(int argc, char** argv){
 
 
 
-    /* Chargement de installation1 */
-    char installation1_path[] = "images/installation1.jpg";
+    /* Chargement de installation1 (radar) */
+    char installation1_path[] = "images/installation3.jpg";
     SDL_Surface* installation1 = IMG_Load(installation1_path);
     if(NULL == installation1) {
         fprintf(stderr, "Echec du chargement de l'image %s\n", installation1_path);
@@ -679,7 +681,7 @@ int main(int argc, char** argv){
 
 
 
-    /* Chargement de installation2 */
+    /* Chargement de installation2 (armement) */
     char installation2_path[] = "images/installation2.jpg";
     SDL_Surface* installation2 = IMG_Load(installation2_path);
     if(NULL == installation2) {
@@ -696,8 +698,8 @@ int main(int argc, char** argv){
 
 
 
-    /* Chargement de installation3 */
-    char installation3_path[] = "images/installation3.jpg";
+    /* Chargement de installation3 (munitions) */
+    char installation3_path[] = "images/installation1.jpg";
     SDL_Surface* installation3 = IMG_Load(installation3_path);
     if(NULL == installation3) {
         fprintf(stderr, "Echec du chargement de l'image %s\n", installation3_path);
@@ -993,7 +995,8 @@ int main(int argc, char** argv){
 							//waves[i][j].setPV(0);
 							myPlayer.setPV(myPlayer.getPV()-waves[i][j].getDegats());
 							if(!myPlayer.isAlive()){
-								//loop=0;
+								printf("You lose !\n");
+								loop=0;
 							}
 						}else{
 							randNum = rand()%(101);
@@ -1014,14 +1017,20 @@ int main(int argc, char** argv){
 		time += 10;
 		if(time>=2000){
 			time=0;
-			waves.push_back(createWave(basique, waves.size()));
-			randNum = rand()%(101);
-			for(int j=0;j<10;j++){
-				waves[waves.size()-1][j].setCurrentNode(firstNode->id,firstNode->type,firstNode->x,firstNode->y);
-				randNum = rand()*(101);
-				tmpNextNode = app.map->nodes[findFaster(firstNode, distances, randNum)];
-				waves[waves.size()-1][j].setNextNode(tmpNextNode->id, tmpNextNode->x, tmpNextNode->y);
+			if(waves.size()>=10){
+				printf("You win !\n");
+				loop = 0;
+			}else{
+				waves.push_back(createWave(fast, waves.size()));
+				randNum = rand()%(101);
+				for(int j=0;j<10;j++){
+					waves[waves.size()-1][j].setCurrentNode(firstNode->id,firstNode->type,firstNode->x,firstNode->y);
+					randNum = rand()*(101);
+					tmpNextNode = app.map->nodes[findFaster(firstNode, distances, randNum)];
+					waves[waves.size()-1][j].setNextNode(tmpNextNode->id, tmpNextNode->x, tmpNextNode->y);
+				}
 			}
+			
 		}
 
 		for(int i=0;i<tours.size();i++){

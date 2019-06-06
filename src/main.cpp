@@ -451,8 +451,8 @@ Installation *createInstallation(TypeInstallation type){
 	return installation;
 }
 
-void draw_button(Button* button){
-	glBegin(GL_POLYGON);
+void draw_button(Button button){
+	/*glBegin(GL_POLYGON);
 
 	glVertex2f( button->getX(), button->getY() );
 
@@ -462,7 +462,20 @@ void draw_button(Button* button){
 
 	glVertex2f( button->getX(), button->getY()+button->getHeight());
 
-	glEnd( );
+	glEnd( );*/
+	draw_circle(returnX(button.getX()), returnY(button.getY()), 0.05);
+	draw_circle(returnX(button.getX()+button.getWidth()), returnY(button.getY()), 0.05);
+	draw_circle(returnX(button.getX()+button.getWidth()), returnY(button.getY()+button.getHeight()), 0.05);
+	draw_circle(returnX(button.getX()), returnY(button.getY()+button.getHeight()), 0.05);
+	
+	/*
+	printf("getX : %f\n",button.getX());
+	printf("getY : %f\n",button.getY());
+
+	printf("getW : %f\n",button.getWidth());
+	printf("getH : %f\n",button.getHeight());
+	*/
+
 }
 
 int main(int argc, char** argv){
@@ -526,16 +539,16 @@ int main(int argc, char** argv){
 
 	vector<Installation*> installations;
 
-	Button start(1.0,1.0,5.0,2.0);
-	Button help(1.0,3.0,5.0,2.0);
-	Button quit(1.0,6.0,5.0,2.0);
+	Button start(200,160,95,30);
+	Button help(200,196,95,30);
+	Button quit(200,232,95,30);
 
 	/* First, initialize SDL's video subsystem. */
 	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
 		error("Video initialization failed: %s", SDL_GetError( ) );
 	}
 
-	SDL_WM_SetCaption("Totowerdefense", "totowerdefense");
+	SDL_WM_SetCaption("Willy", "Willy");
 	/* Let's get some video information. */
 	info = SDL_GetVideoInfo( );
 
@@ -898,7 +911,101 @@ int main(int argc, char** argv){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, menu4->w, menu4->h, 0, format, GL_UNSIGNED_BYTE, menu4->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
 
+	/* Chargement de l'image */
+    char helptext_path[] = "images/bg_help.jpg";
+    SDL_Surface* helptext = IMG_Load(helptext_path);
+    if(NULL == helptext) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", helptext_path);
+        exit(EXIT_FAILURE);
+    }
 
+    /* Initialisation de la texture */
+    GLuint texture_id16;
+    glGenTextures(1, &texture_id16);
+    glBindTexture(GL_TEXTURE_2D, texture_id16);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format_menu1;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", helptext_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, helptext->w, helptext->h, 0, format, GL_UNSIGNED_BYTE, helptext->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+
+	/* Chargement de l'image */
+    char win_path[] = "images/win.jpg";
+    SDL_Surface* win = IMG_Load(win_path);
+    if(NULL == win) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", win_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id17;
+    glGenTextures(1, &texture_id17);
+    glBindTexture(GL_TEXTURE_2D, texture_id17);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format_menu1;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", win_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, win->w, win->h, 0, format, GL_UNSIGNED_BYTE, win->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	/* Chargement de l'image */
+    char loose_path[] = "images/bg_gameOver.jpg";
+    SDL_Surface* loose = IMG_Load(loose_path);
+    if(NULL == loose) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", loose_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id18;
+    glGenTextures(1, &texture_id18);
+    glBindTexture(GL_TEXTURE_2D, texture_id18);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format_menu1;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", loose_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, loose->w, loose->h, 0, format, GL_UNSIGNED_BYTE, loose->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     
 
@@ -925,22 +1032,52 @@ int main(int argc, char** argv){
 	float yTour = 0;
 	float xInstallation = 0;
 	float yInstallation = 0;
+	int xMouse = 0;
+	int yMouse = 0;
 	bool dessinTour;
 	bool dessinInstallation;
 	bool check = false;
 	bool check2 = true;
 	while( loop != 0 ) {
-
-		
-		dessinTour = false;
-		dessinInstallation = false;
 		/* Process incoming events. */
 		if(!process_events(&app)) break;
 		/* Draw the screen. */
 		draw_screen(&app);
 
 		if(loop==1){
+			/*** RESET ALL **/
+			touche = 0;
+			bool check = false;
+			bool check2 = true;
+			for(int i=0;i<waves.size();i++){
+				waves.erase(waves.begin()+i);
+			}
+			for(int i=0;i<tours.size();i++){
+				tours.erase(tours.begin()+i);
+			}
+			for(int i=0;i<bullets.size();i++){
+				bullets.erase(bullets.begin()+i);
+			}
+			myPlayer.setPV(100);
+			myPlayer.setMoney(100);
+
+
 			draw_background(texture_id12);
+			if(start.isHovered(xMouse,yMouse)){
+				//printf("Yeah!!\n");
+				draw_background(texture_id13);
+			}
+			if(help.isHovered(xMouse,yMouse)){
+				//printf("Yeah!!\n");
+				draw_background(texture_id14);
+			}
+			if(quit.isHovered(xMouse,yMouse)){
+				//printf("Yeah!!\n");
+				draw_background(texture_id15);
+			}
+			//draw_button(start);
+			//draw_button(help);
+			//draw_button(quit);
 			SDL_Event e;
 			while (SDL_PollEvent(&e)){
 				if (e.type == SDL_QUIT) {
@@ -949,12 +1086,29 @@ int main(int argc, char** argv){
 				}
 				switch (e.type){
 					case SDL_MOUSEBUTTONUP:	
-						xTour = e.button.x;
-						yTour = e.button.y;
+						xMouse = e.button.x;
+						yMouse = e.button.y;
 						printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
+						if(quit.isHovered(xMouse,yMouse)){
+							//printf("Yeah!!\n");
+							loop =0;
+						}
+						if(start.isHovered(xMouse,yMouse)){
+							//printf("Yeah!!\n");
+							loop =2;
+						}
+						if(help.isHovered(xMouse,yMouse)){
+							//printf("Yeah!!\n");
+							loop =3;
+						}
 						break;
 					case SDL_MOUSEMOTION:
-						printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
+						xMouse = e.button.x;
+						yMouse = e.button.y;
+
+						//printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
+						//printf("Mouse 2 move en : (%f , %f)\n", returnX(e.button.x), returnY(e.button.y));
+						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
 						break;
 					case SDL_KEYDOWN:
 						touche = e.key.keysym.sym;
@@ -973,52 +1127,19 @@ int main(int argc, char** argv){
 			if (touche == SDLK_q){
 				loop = 0;
 			}
-			/*if ((xTour<app.map->map_data->x-10) && (xTour>10) && (yTour<app.map->map_data->y-10) && (yTour>10)){
-				dessinTour = true;
-			}else{
-				dessinTour = false;
-				//printf("fauxxxx Xtour=%f screen=%d\n", xTour, app.map->map_data->x);
-			}*/
 
 			// end the screen
 			SDL_GL_SwapBuffers( );
 
-			/*time += 10;
-			if(time>=2000){
-				time=0;
-				if(waves.size()>=10){
-					printf("You win !\n");
-					loop = 0;
-				}else{
-					int randTypeMonster = rand()%(3);
-					printf("----RAND TYPE MONSTER : %d\n", randTypeMonster);
-					if(randTypeMonster==0){
-						waves.push_back(createWave(fast, waves.size()));
-					}else if(randTypeMonster==1){
-						waves.push_back(createWave(resistant, waves.size()));
-					}else if(randTypeMonster==2){
-						waves.push_back(createWave(powerful, waves.size()));
-					}
-					randNum = rand()%(101);
-					for(int j=0;j<10;j++){
-						waves[waves.size()-1][j].setCurrentNode(firstNode->id,firstNode->type,firstNode->x,firstNode->y);
-						randNum = rand()*(101);
-						tmpNextNode = app.map->nodes[findFaster(firstNode, distances, randNum)];
-						waves[waves.size()-1][j].setNextNode(tmpNextNode->id, tmpNextNode->x, tmpNextNode->y);
-					}
-				}
-				
-			}
-
-			for(int i=0;i<tours.size();i++){
-				tours[i]->setCounter(tours[i]->getCounter()+10);
-			}*/
-
 			SDL_Delay(10);
 
-		}else{
+		}
+		else if (loop == 2){
 		draw_background(texture_id);
 
+		
+		dessinTour = false;
+		dessinInstallation = false;
 
 		/* Draw the monster */
 		//glColor3d(255,0,0);
@@ -1036,10 +1157,12 @@ int main(int argc, char** argv){
 					if ((touche == SDLK_r)||(touche == SDLK_v)||(touche == SDLK_j)||(touche == SDLK_b)){
 						dessinTour = true;
 						dessinInstallation = false;
+						printf("dessin ok");
 					}
 					if ((touche == SDLK_p)||(touche == SDLK_a)||(touche == SDLK_c)){
 						dessinInstallation = true;
 						dessinTour = false;
+						printf("dessin ok");
 					}
 					//if ((e.button.x<app.map->map_data->x-50) && (e.button.x>50) && (e.button.y<app.map->map_data->y-50) && (e.button.y>50)){
 						
@@ -1066,6 +1189,12 @@ int main(int argc, char** argv){
 		// Fermer le jeux
 		if (touche == SDLK_q){
 			loop = 0;
+		}
+		if (touche == SDLK_m){
+			loop = 1;
+		}
+		if (touche == SDLK_h){
+			loop = 3;
 		}
 		/*if ((xTour<app.map->map_data->x-10) && (xTour>10) && (yTour<app.map->map_data->y-10) && (yTour>10)){
 		 	dessinTour = true;
@@ -1197,7 +1326,7 @@ int main(int argc, char** argv){
 				//glColor3d(0,0,255);	
 				draw_elem(texture_id6,returnX2(tours[i]->getPositionX(),app),returnY2(tours[i]->getPositionY(),app),0.1f);
 			}
-			draw_circle(returnX2(tours[i]->getPositionX(),app),returnY2(tours[i]->getPositionY(),app), 0.1);	
+			//draw_circle(returnX2(tours[i]->getPositionX(),app),returnY2(tours[i]->getPositionY(),app), 0.1);	
 		}
 
 		for (int i=0; i<installations.size();i++){
@@ -1273,7 +1402,7 @@ int main(int argc, char** argv){
 							myPlayer.setPV(myPlayer.getPV()-waves[i][j].getDegats());
 							if(!myPlayer.isAlive()){
 								printf("You lose !\n");
-								//loop=0;
+								loop=5;
 							}
 						}else{
 							randNum = rand()%(101);
@@ -1296,7 +1425,7 @@ int main(int argc, char** argv){
 			time=0;
 			if(waves.size()>=10){
 				printf("You win !\n");
-				loop = 0;
+				loop = 4;
 			}else{
 				int randTypeMonster = rand()%(3);
 				printf("----RAND TYPE MONSTER : %d\n", randTypeMonster);
@@ -1323,6 +1452,155 @@ int main(int argc, char** argv){
 		}
 
 		SDL_Delay(10);
+	}
+	else if(loop == 3){
+		draw_background(texture_id16);
+			SDL_Event e;
+			touche = 0;
+			while (SDL_PollEvent(&e)){
+				if (e.type == SDL_QUIT) {
+					//SDL_Log("Program quit after %i ticks", e.quit.timestamp);
+					break;
+				}
+				switch (e.type){
+					case SDL_MOUSEBUTTONUP:	
+						xMouse = e.button.x;
+						yMouse = e.button.y;
+						printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
+						break;
+					case SDL_MOUSEMOTION:
+						xMouse = e.button.x;
+						yMouse = e.button.y;
+
+						//printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
+						//printf("Mouse 2 move en : (%f , %f)\n", returnX(e.button.x), returnY(e.button.y));
+						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
+						break;
+					case SDL_KEYDOWN:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche pressee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					case SDL_KEYUP:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche relachee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					default : break;
+				}
+			}
+			// Fermer le jeux
+			if (touche == SDLK_q){
+				loop = 0;
+			}
+			if (touche == SDLK_m){
+				loop = 1;
+			}
+			if (touche == SDLK_h){
+				/** RESET ALL **/
+				touche=0;
+				bool check = false;
+				bool check2 = true;
+				loop = 2;
+			}
+			SDL_GL_SwapBuffers( );
+			SDL_Delay(10);
+	}
+	else if(loop == 4){
+		draw_background(texture_id17);
+			SDL_Event e;
+			touche = 0;
+			while (SDL_PollEvent(&e)){
+				if (e.type == SDL_QUIT) {
+					//SDL_Log("Program quit after %i ticks", e.quit.timestamp);
+					break;
+				}
+				switch (e.type){
+					case SDL_MOUSEBUTTONUP:	
+						xMouse = e.button.x;
+						yMouse = e.button.y;
+						printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
+						break;
+					case SDL_MOUSEMOTION:
+						xMouse = e.button.x;
+						yMouse = e.button.y;
+
+						//printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
+						//printf("Mouse 2 move en : (%f , %f)\n", returnX(e.button.x), returnY(e.button.y));
+						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
+						break;
+					case SDL_KEYDOWN:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche pressee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					case SDL_KEYUP:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche relachee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					default : break;
+				}
+			}
+			// Fermer le jeux
+			if (touche == SDLK_q){
+				loop = 0;
+			}
+			if (touche == SDLK_m){
+				loop = 1;
+			}
+			SDL_GL_SwapBuffers( );
+			SDL_Delay(10);
+	}
+	else if(loop == 5){
+		draw_background(texture_id18);
+			SDL_Event e;
+			touche = 0;
+			while (SDL_PollEvent(&e)){
+				if (e.type == SDL_QUIT) {
+					//SDL_Log("Program quit after %i ticks", e.quit.timestamp);
+					break;
+				}
+				switch (e.type){
+					case SDL_MOUSEBUTTONUP:	
+						xMouse = e.button.x;
+						yMouse = e.button.y;
+						printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
+						break;
+					case SDL_MOUSEMOTION:
+						xMouse = e.button.x;
+						yMouse = e.button.y;
+
+						//printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
+						//printf("Mouse 2 move en : (%f , %f)\n", returnX(e.button.x), returnY(e.button.y));
+						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
+						break;
+					case SDL_KEYDOWN:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche pressee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					case SDL_KEYUP:
+						touche = e.key.keysym.sym;
+						printf("Touche %d\n", touche);
+						printf("Touche relachee : (code : %d)\n", e.key.keysym.sym);
+						break;
+					default : break;
+				}
+			}
+			// Fermer le jeux
+			if (touche == SDLK_q){
+				loop = 0;
+			}
+			if (touche == SDLK_m){
+				loop = 1;
+			}
+			SDL_GL_SwapBuffers( );
+			SDL_Delay(10);
+	}
+	else {
+		printf("on est en dehors des loop def");
+		loop = 0;
 	}
 	}
 	/* Liberation de la memoire allouee sur le GPU pour la texture */

@@ -8,19 +8,19 @@
 class Button
 {
     private:
-	float x;
-	float y;
-	float width;
-	float height;
+	int x;
+	int y;
+	int width;
+	int height;
 
     public:
-    Button(float x, float y, float width, float height); // Constructeur
+    Button(int x, int y, int width, int height); // Constructeur
     ~Button(); // Destructeur
-    bool isHovered(float x, float y);
-    float getX();
-    float getY();
-    float getWidth();
-    float getHeight();
+    bool isHovered(int x, int y);
+    int getX();
+    int getY();
+    int getWidth();
+    int getHeight();
 };
 
 #endif // BUTTON_H

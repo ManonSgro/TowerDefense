@@ -5,25 +5,25 @@
 using namespace std;
 
 
-Button::Button(float x, float y, float width, float height) : x(x), y(y), width(width), height(height)
+Button::Button(int x, int y, int width, int height) : x(x), y(y), width(width), height(height)
 {
     cout << "Create new button with x=" << x << " and y="<< y << endl;
 }
 
 Button::~Button(){};
 
-bool Button::isHovered(float x, float y){
-	return (x<=this->x) && (x>=this->x+this->width) && (y<=this->y) && (y>=this->y+this->height);
+bool Button::isHovered(int x, int y){
+	return (x>=this->x) && (x<=this->x+this->width) && (y>=this->y) && (y<=this->y+this->height);
 }
-float Button::getX(){
+int Button::getX(){
 	return this->x;
 }
-float Button::getY(){
+int Button::getY(){
 	return this->y;
 }
-float Button::getWidth(){
+int Button::getWidth(){
 	return this->width;
 }
-float Button::getHeight(){
+int Button::getHeight(){
 	return this->height;
 }

@@ -6,7 +6,7 @@ OBJ_DIR    := $(BUILD)/objects
 BIN_DIR    := $(BUILD)/bin
 INCLUDE    := -I./include/ -I$(THIRD_PART)/include
 SRC_DIR    := ./src
-OBJECTS    := $(OBJ_DIR)/main.o $(OBJ_DIR)/utils.o $(OBJ_DIR)/map_reader.o $(OBJ_DIR)/map.o $(OBJ_DIR)/monster.o $(OBJ_DIR)/tower.o $(OBJ_DIR)/player.o $(OBJ_DIR)/installation.o
+OBJECTS    := $(OBJ_DIR)/main.o $(OBJ_DIR)/utils.o $(OBJ_DIR)/map_reader.o $(OBJ_DIR)/map.o $(OBJ_DIR)/monster.o $(OBJ_DIR)/tower.o $(OBJ_DIR)/player.o $(OBJ_DIR)/installation.o $(OBJ_DIR)/button.o
 
 ifeq ($(OS), Windows_NT)
 	TARGET     := TotowerDefense.exe

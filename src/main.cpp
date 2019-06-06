@@ -10,6 +10,7 @@
 #include "tower.h"
 #include "player.h"
 #include "installation.h"
+#include "button.h"
 
 #include <iostream>
 #include <queue>
@@ -450,6 +451,20 @@ Installation *createInstallation(TypeInstallation type){
 	return installation;
 }
 
+void draw_button(Button* button){
+	glBegin(GL_POLYGON);
+
+	glVertex2f( button->getX(), button->getY() );
+
+	glVertex2f( button->getX()+button->getWidth(), button->getY());
+
+	glVertex2f( button->getX()+button->getWidth(), button->getY()+button->getHeight());
+
+	glVertex2f( button->getX(), button->getY()+button->getHeight());
+
+	glEnd( );
+}
+
 int main(int argc, char** argv){
 
 	const SDL_VideoInfo* info = NULL;
@@ -459,9 +474,9 @@ int main(int argc, char** argv){
 
 	if (argc != 2)
 	{
-		error("Wrong argument count:\nUsage:\n%s <idt_path>", argv[0]);
+		error("Wrong argument count:\nUsage:\n%s <itd_path>", argv[0]);
 	}
-	app.map = read_idt(argv[1]);
+	app.map = read_itd(argv[1]);
 	check_map(app.map);
 	
 
@@ -510,6 +525,10 @@ int main(int argc, char** argv){
 	TypeInstallation munitions(3, 1.25, 75, 10);
 
 	vector<Installation*> installations;
+
+	Button start(1.0,1.0,5.0,2.0);
+	Button help(1.0,3.0,5.0,2.0);
+	Button quit(1.0,6.0,5.0,2.0);
 
 	/* First, initialize SDL's video subsystem. */
 	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
@@ -756,19 +775,19 @@ int main(int argc, char** argv){
     glBindTexture(GL_TEXTURE_2D, 0);
 
 	/* Chargement de l'image */
-    /*char image_path[] = "images/bg_map_1.jpg";
-    SDL_Surface* image = IMG_Load(image_path);
-    if(NULL == image) {
-        fprintf(stderr, "Echec du chargement de l'image %s\n", image_path);
+    char menu1_path[] = "images/bg_menu_1.jpg";
+    SDL_Surface* menu1 = IMG_Load(menu1_path);
+    if(NULL == menu1) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", menu1_path);
         exit(EXIT_FAILURE);
     }
 
     /* Initialisation de la texture */
-    /*GLuint texture_id;
-    glGenTextures(1, &texture_id);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
+    GLuint texture_id12;
+    glGenTextures(1, &texture_id12);
+    glBindTexture(GL_TEXTURE_2D, texture_id12);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    GLenum format;
+    //GLenum format_menu1;
     switch(image->format->BytesPerPixel) {
         case 1:
             format = GL_RED;
@@ -780,11 +799,104 @@ int main(int argc, char** argv){
             format = GL_RGBA;
             break;
         default:
-            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", image_path);
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", menu1_path);
             return EXIT_FAILURE;
     }
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
-    glBindTexture(GL_TEXTURE_2D, 0);*/
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, menu1->w, menu1->h, 0, format, GL_UNSIGNED_BYTE, menu1->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+	/* Chargement de l'image */
+    char menu2_path[] = "images/bg_menu_2.jpg";
+    SDL_Surface* menu2 = IMG_Load(menu2_path);
+    if(NULL == menu2) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", menu2_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id13;
+    glGenTextures(1, &texture_id13);
+    glBindTexture(GL_TEXTURE_2D, texture_id13);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format_menu1;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", menu2_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, menu2->w, menu2->h, 0, format, GL_UNSIGNED_BYTE, menu2->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+	/* Chargement de l'image */
+    char menu3_path[] = "images/bg_menu_3.jpg";
+    SDL_Surface* menu3 = IMG_Load(menu3_path);
+    if(NULL == menu3) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", menu3_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id14;
+    glGenTextures(1, &texture_id14);
+    glBindTexture(GL_TEXTURE_2D, texture_id14);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format_menu1;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", menu3_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, menu3->w, menu3->h, 0, format, GL_UNSIGNED_BYTE, menu3->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+	/* Chargement de l'image */
+    char menu4_path[] = "images/bg_menu_4.jpg";
+    SDL_Surface* menu4 = IMG_Load(menu4_path);
+    if(NULL == menu4) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", menu4_path);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialisation de la texture */
+    GLuint texture_id15;
+    glGenTextures(1, &texture_id15);
+    glBindTexture(GL_TEXTURE_2D, texture_id15);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //GLenum format_menu1;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image %s non supporte.\n", menu4_path);
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, menu4->w, menu4->h, 0, format, GL_UNSIGNED_BYTE, menu4->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
 
 
@@ -807,7 +919,7 @@ int main(int argc, char** argv){
 	}
 	int time = 0;
 
-	int loop = 2;
+	int loop = 1;
 	int touche = 0;
 	float xTour = 0;
 	float yTour = 0;
@@ -828,31 +940,21 @@ int main(int argc, char** argv){
 		draw_screen(&app);
 
 		if(loop==1){
-			draw_background(texture_id);
-			/*SDL_Event e;
+			draw_background(texture_id12);
+			SDL_Event e;
 			while (SDL_PollEvent(&e)){
 				if (e.type == SDL_QUIT) {
 					//SDL_Log("Program quit after %i ticks", e.quit.timestamp);
 					break;
 				}
 				switch (e.type){
-					case SDL_MOUSEBUTTONUP:
-						if ((touche == SDLK_r)||(touche == SDLK_v)||(touche == SDLK_j)||(touche == SDLK_b)){
-							dessinTour = true;
-							dessinInstallation = false;
-						}
-						if ((touche == SDLK_p)||(touche == SDLK_a)||(touche == SDLK_c)){
-							dessinInstallation = true;
-							dessinTour = false;
-						}
-						//if ((e.button.x<app.map->map_data->x-50) && (e.button.x>50) && (e.button.y<app.map->map_data->y-50) && (e.button.y>50)){
-							
-							xTour = e.button.x;
-							yTour = e.button.y;
-							xInstallation = e.button.x;
-							yInstallation = e.button.y;
-						//}
+					case SDL_MOUSEBUTTONUP:	
+						xTour = e.button.x;
+						yTour = e.button.y;
 						printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
+						break;
+					case SDL_MOUSEMOTION:
+						printf("Mouse move en : (%d , %d)\n", e.button.x, e.button.y);
 						break;
 					case SDL_KEYDOWN:
 						touche = e.key.keysym.sym;
@@ -870,7 +972,7 @@ int main(int argc, char** argv){
 			// Fermer le jeux
 			if (touche == SDLK_q){
 				loop = 0;
-			}*/
+			}
 			/*if ((xTour<app.map->map_data->x-10) && (xTour>10) && (yTour<app.map->map_data->y-10) && (yTour>10)){
 				dessinTour = true;
 			}else{

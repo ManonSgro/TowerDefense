@@ -10,8 +10,8 @@ Release mode: make release
 Clean: make clean
 
 ### Run
-make run ARGS="<idt_path>"
+make run ARGS="<itd_path>"
 
 **Example**
 
-`[~/workspace/totowerdefense]: make run ARGS="./data/map01.idt"`
+`[~/workspace/totowerdefense]: make run ARGS="./data/map01.itd"`

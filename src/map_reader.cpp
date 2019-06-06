@@ -99,7 +99,7 @@ void sscanf_array(const char* buff, int* numbers, int* numbers_count)
 
 
 
-Map* read_idt(const char* filename)
+Map* read_itd(const char* filename)
 {
 	char buff[HIGHMAXSIZE];
 	char str_value[LOWMAXSIZE];
@@ -134,7 +134,7 @@ Map* read_idt(const char* filename)
 			case PPMMAP:
 				if (sscanf(buff, "carte %s", str_value) != 1)
 				{
-					error("IDT is invalid -> step: %s; line: %s", step_name(step), buff);
+					error("ITD is invalid -> step: %s; line: %s", step_name(step), buff);
 				}
 				ppm_map = read_ppm_map(str_value);
 				NEW_N_INIT(map, Map, ppm_map, 0);
@@ -148,7 +148,7 @@ Map* read_idt(const char* filename)
 				}
 				if (sscanf(buff, "%s", str_value) != 1)
 				{
-					error("IDT is invalid -> step: %s; line: %s", step_name(step), buff);
+					error("ITD is invalid -> step: %s; line: %s", step_name(step), buff);
 				}
 				sscanf_array(buff+strlen(str_value)+1, numbers_value, &numbers_count);
 				MapSetValue(map, str_value, numbers_value, numbers_count);
@@ -179,7 +179,7 @@ Map* read_idt(const char* filename)
 	fclose(fp);
 	if (!map)
 	{
-		error("IDT is invalid, map has not been created -> last step: %s", step_name(step));
+		error("ITD is invalid, map has not been created -> last step: %s", step_name(step));
 	}
 	return map;
 }

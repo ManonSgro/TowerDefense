@@ -4,7 +4,7 @@
 #include "map.h"
 
 PPMImage* read_ppm_map(const char* filename);
-Map* read_idt(const char* filename);
+Map* read_itd(const char* filename);
 void check_map(const Map* map);
 
 

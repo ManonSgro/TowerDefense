@@ -1007,7 +1007,184 @@ int main(int argc, char** argv){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, loose->w, loose->h, 0, format, GL_UNSIGNED_BYTE, loose->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    
+
+
+    /* Chargement de argent0 */
+    char argent0_path[] = "images/0.jpg";
+    SDL_Surface* argent0 = IMG_Load(argent0_path);
+    if(NULL == argent0) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent0_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id19;
+    glGenTextures(1, &texture_id19);
+    glBindTexture(GL_TEXTURE_2D, texture_id19);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent0->w, argent0->h, 0, format, GL_UNSIGNED_BYTE, argent0->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent1 */
+    char argent1_path[] = "images/1.jpg";
+    SDL_Surface* argent1 = IMG_Load(argent1_path);
+    if(NULL == argent1) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent1_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id20;
+    glGenTextures(1, &texture_id20);
+    glBindTexture(GL_TEXTURE_2D, texture_id20);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent1->w, argent1->h, 0, format, GL_UNSIGNED_BYTE, argent1->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent2 */
+    char argent2_path[] = "images/2.jpg";
+    SDL_Surface* argent2 = IMG_Load(argent2_path);
+    if(NULL == argent2) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent2_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id21;
+    glGenTextures(1, &texture_id21);
+    glBindTexture(GL_TEXTURE_2D, texture_id21);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent2->w, argent2->h, 0, format, GL_UNSIGNED_BYTE, argent2->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent3 */
+    char argent3_path[] = "images/3.jpg";
+    SDL_Surface* argent3 = IMG_Load(argent3_path);
+    if(NULL == argent3) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent3_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id22;
+    glGenTextures(1, &texture_id22);
+    glBindTexture(GL_TEXTURE_2D, texture_id22);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent3->w, argent3->h, 0, format, GL_UNSIGNED_BYTE, argent3->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent4 */
+    char argent4_path[] = "images/4.jpg";
+    SDL_Surface* argent4 = IMG_Load(argent4_path);
+    if(NULL == argent4) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent4_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id23;
+    glGenTextures(1, &texture_id23);
+    glBindTexture(GL_TEXTURE_2D, texture_id23);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent4->w, argent4->h, 0, format, GL_UNSIGNED_BYTE, argent4->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent5 */
+    char argent5_path[] = "images/5.jpg";
+    SDL_Surface* argent5 = IMG_Load(argent5_path);
+    if(NULL == argent5) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent5_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id24;
+    glGenTextures(1, &texture_id24);
+    glBindTexture(GL_TEXTURE_2D, texture_id24);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent5->w, argent5->h, 0, format, GL_UNSIGNED_BYTE, argent5->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent6 */
+    char argent6_path[] = "images/6.jpg";
+    SDL_Surface* argent6 = IMG_Load(argent6_path);
+    if(NULL == argent6) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent6_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id25;
+    glGenTextures(1, &texture_id25);
+    glBindTexture(GL_TEXTURE_2D, texture_id25);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent6->w, argent6->h, 0, format, GL_UNSIGNED_BYTE, argent6->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent7 */
+    char argent7_path[] = "images/7.jpg";
+    SDL_Surface* argent7 = IMG_Load(argent7_path);
+    if(NULL == argent7) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent7_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id26;
+    glGenTextures(1, &texture_id26);
+    glBindTexture(GL_TEXTURE_2D, texture_id26);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent7->w, argent7->h, 0, format, GL_UNSIGNED_BYTE, argent7->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent8 */
+    char argent8_path[] = "images/8.jpg";
+    SDL_Surface* argent8 = IMG_Load(argent8_path);
+    if(NULL == argent8) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent8_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id27;
+    glGenTextures(1, &texture_id27);
+    glBindTexture(GL_TEXTURE_2D, texture_id27);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent8->w, argent8->h, 0, format, GL_UNSIGNED_BYTE, argent8->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argent9 */
+    char argent9_path[] = "images/9.jpg";
+    SDL_Surface* argent9 = IMG_Load(argent9_path);
+    if(NULL == argent9) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argent9_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id28;
+    glGenTextures(1, &texture_id28);
+    glBindTexture(GL_TEXTURE_2D, texture_id28);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argent9->w, argent9->h, 0, format, GL_UNSIGNED_BYTE, argent9->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    /* Chargement de argentDollar */
+    char argentDollar_path[] = "images/dollar.jpg";
+    SDL_Surface* argentDollar = IMG_Load(argentDollar_path);
+    if(NULL == argentDollar) {
+        fprintf(stderr, "Echec du chargement de l'image %s\n", argentDollar_path);
+        exit(EXIT_FAILURE);
+    }
+    /* Initialisation de la texture */
+    GLuint texture_id29;
+    glGenTextures(1, &texture_id29);
+    glBindTexture(GL_TEXTURE_2D, texture_id29);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, argentDollar->w, argentDollar->h, 0, format, GL_UNSIGNED_BYTE, argentDollar->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    GLuint textures[] = {texture_id19, texture_id20, texture_id21, texture_id22, texture_id23,texture_id24,texture_id25,texture_id26,texture_id27, texture_id28, texture_id29};
 
 	int newX;
 	float y;
@@ -1378,7 +1555,19 @@ int main(int argc, char** argv){
 			}else{
 				bullets.erase(bullets.begin()+i);
 			}
-		}	
+		}
+
+		// Draw money
+		draw_elem(texture_id29,returnX(480),returnY(290),0.07f);
+		int unite = myPlayer.getMoney() % 10;
+		int dizaine = myPlayer.getMoney() / 10 % 10;
+		int centaine = myPlayer.getMoney() / 100 % 10;
+		/*for(int i=460;i>=420;i-=20){
+			draw_elem(textures[unite],returnX(i),returnY(290),0.07f);
+		}*/
+		draw_elem(textures[unite],returnX(460),returnY(290),0.07f);
+		draw_elem(textures[dizaine],returnX(440),returnY(290),0.07f);
+		draw_elem(textures[centaine],returnX(420),returnY(290),0.07f);	
 
 		// Move the monster
 		for(int i=0;i<waves.size();i++){

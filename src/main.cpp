@@ -1353,7 +1353,9 @@ int main(int argc, char** argv){
 					printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
 					break;
 				case SDL_KEYDOWN:
-					touche = e.key.keysym.sym;
+					if(e.key.keysym.sym != SDLK_h){
+						touche = e.key.keysym.sym;
+					}
 					printf("Touche %d\n", touche);
 					printf("Touche pressee : (code : %d)\n", e.key.keysym.sym);
 					break;
@@ -1659,7 +1661,7 @@ int main(int argc, char** argv){
 						//printf("start %d, %d, %d, %d\n",start.getX(),start.getY(),start.getWidth(),start.getHeight());
 						break;
 					case SDL_KEYDOWN:
-						touche = e.key.keysym.sym;
+						//touche = e.key.keysym.sym;
 						printf("Touche %d\n", touche);
 						printf("Touche pressee : (code : %d)\n", e.key.keysym.sym);
 						break;

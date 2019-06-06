@@ -932,7 +932,7 @@ int main(int argc, char** argv){
 
 			// Draw installations and affect towers	
 			if (check && check2){
-				if (touche == SDLK_p){s	
+				if (touche == SDLK_p){
 					installations.push_back(createInstallation(radar));
 					myPlayer.setMoney(myPlayer.getMoney()-radar.getPrice());
 					for(int i=0;i<tours.size();i++){

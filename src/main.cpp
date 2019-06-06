@@ -1331,6 +1331,8 @@ int main(int argc, char** argv){
 		    }
 			switch (e.type){
 				case SDL_MOUSEBUTTONUP:
+					if ((e.button.x<app.map->map_data->x-40) && (e.button.x>40) && (e.button.y<app.map->map_data->y-40) && (e.button.y>40)){
+						
 					if ((touche == SDLK_r)||(touche == SDLK_v)||(touche == SDLK_j)||(touche == SDLK_b)){
 						dessinTour = true;
 						dessinInstallation = false;
@@ -1341,13 +1343,13 @@ int main(int argc, char** argv){
 						dessinTour = false;
 						printf("dessin ok");
 					}
-					//if ((e.button.x<app.map->map_data->x-50) && (e.button.x>50) && (e.button.y<app.map->map_data->y-50) && (e.button.y>50)){
-						
 						xTour = e.button.x;
 						yTour = e.button.y;
 						xInstallation = e.button.x;
 						yInstallation = e.button.y;
-					//}
+					}else{
+						printf("\nNo sec fault with me !!!!!!!\n");
+					}
 					printf("Clic en : (%d , %d)\n", e.button.x, e.button.y);
 					break;
 				case SDL_KEYDOWN:
@@ -1530,12 +1532,6 @@ int main(int argc, char** argv){
 					if(waves[i][j].isAlive()){
 						if(tours[t]->isInShootingRange(waves[i][j].getPositionX(), waves[i][j].getPositionY()) && (tours[t]->getCounter()>=(tours[t]->getCadence()*tours[t]->getCoeffCadence()) ) ){ //et compteur ok
 							//dessiner une ligne
-							/*glLineWidth(0.5);
-							glColor3f(1.0, 0.0, 0.0);
-							glBegin(GL_LINES);
-							glVertex2f(returnX(waves[i][j].getPositionX()), returnY(waves[i][j].getPositionY()));
-							glVertex2f(returnX2(tours[t]->getPositionX()),returnY2(tours[t]->getPositionY()));
-							glEnd();*/
 							bullets.push_back(createBullet(tours[t], waves[i][j], app));
 							tours[t]->setCounter(0);
 							//enlever les points
@@ -1562,9 +1558,6 @@ int main(int argc, char** argv){
 		int unite = myPlayer.getMoney() % 10;
 		int dizaine = myPlayer.getMoney() / 10 % 10;
 		int centaine = myPlayer.getMoney() / 100 % 10;
-		/*for(int i=460;i>=420;i-=20){
-			draw_elem(textures[unite],returnX(i),returnY(290),0.07f);
-		}*/
 		draw_elem(textures[unite],returnX(460),returnY(290),0.07f);
 		draw_elem(textures[dizaine],returnX(440),returnY(290),0.07f);
 		draw_elem(textures[centaine],returnX(420),returnY(290),0.07f);	

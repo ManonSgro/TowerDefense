@@ -121,7 +121,7 @@ bool Tower::isInShootingRange(float x, float y){
 
 Bullet::Bullet(float x, float y,float targetX, float targetY) : x(x), y(y), targetX(targetX), targetY(targetY)
 {
-    cout << "Create new bullet with x=" << x << " and y="<< y << endl;
+    //cout << "Create new bullet with x=" << x << " and y="<< y << endl;
 }
 
 bool Bullet::moveToTarget(){

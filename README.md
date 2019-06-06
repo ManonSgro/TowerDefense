@@ -1,4 +1,4 @@
-# TotowerDefense
+# Willy
 
 ## Usage
 
@@ -14,4 +14,4 @@ make run ARGS="<itd_path>"
 
 **Example**
 
-`[~/workspace/totowerdefense]: make run ARGS="./data/map01.itd"`
+`[~/workspace/Willy]: make run ARGS="./data/map01.itd"`

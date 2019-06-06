@@ -9,7 +9,7 @@ SRC_DIR    := ./src
 OBJECTS    := $(OBJ_DIR)/main.o $(OBJ_DIR)/utils.o $(OBJ_DIR)/map_reader.o $(OBJ_DIR)/map.o $(OBJ_DIR)/monster.o $(OBJ_DIR)/tower.o $(OBJ_DIR)/player.o $(OBJ_DIR)/installation.o $(OBJ_DIR)/button.o
 
 ifeq ($(OS), Windows_NT)
-	TARGET     := TotowerDefense.exe
+	TARGET     := Willy.exe
 	LDFLAGS    := -L$(THIRD_PART)/lib -lSDL -lSDL_image -lopengl32 -lglu32 -L$(BIN_DIR)
 	MKDIR = if not exist "$(1)" mkdir "$(1)"
 	CP := xcopy /i /y
@@ -17,7 +17,7 @@ ifeq ($(OS), Windows_NT)
 	CXXFLAGS   := $(CXXFLAGS)
 	INSTALL := 	$(CP) /s "$(THIRD_PART)/bin" "$(BIN_DIR)/*"
 else
-	TARGET     := TotowerDefense.out
+	TARGET     := Willy.out
 	MKDIR = mkdir -p $(1)
 	CP := cp
 	RM := rm -rvf

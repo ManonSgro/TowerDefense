@@ -280,6 +280,41 @@ bool colisionCheck(float x1, float y1, float coeff1, float x2, float y2, float c
     glDisable(GL_TEXTURE_2D);
 } 
 
+// Draw textured square (rotate)
+ void draw_enemy(GLuint texture_id, float x, float y, float coeff) { 
+    glColor3d(255,255,255);
+    glEnable(GL_TEXTURE_2D);
+
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+    glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(x, y, 0.0f);
+	glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+    glPushMatrix();
+        glBegin(GL_QUADS);
+    
+	    glTexCoord2f(0, 1);
+        glVertex2f(-coeff, coeff);
+    
+        glTexCoord2f(1, 1);
+        glVertex2f(coeff, coeff);
+    
+        glTexCoord2f(1, 0);
+        glVertex2f(coeff, -coeff);
+    
+        glTexCoord2f(0, 0);
+        glVertex2f(-coeff, -coeff);
+
+	    glEnd();
+    glPopMatrix();
+
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    glDisable(GL_TEXTURE_2D);
+} 
+
 // Draw a circle around x,y
 void draw_circle(float x, float y, float radius) { 
     glMatrixMode(GL_MODELVIEW);
@@ -427,7 +462,7 @@ int main(int argc, char** argv){
 		distances[i]= new int[app.map->nodes_count];
 	}
 	plusCourtChemin(app.map, distances);
-	Player myPlayer(100);
+	Player myPlayer(200);
 	
 	int position[2];
 	TypeMonster fast(1, 3, weak, 5);
@@ -989,11 +1024,9 @@ int main(int argc, char** argv){
 			if (installations[i]->getType() == radar.getId()){
 				draw_elem(textures_id[13],returnX(installations[i]->getPositionX(),app),returnY(installations[i]->getPositionY(),app),0.07f);
 
-			}
-			if (installations[i]->getType() == armement.getId()){
+			}else if (installations[i]->getType() == armement.getId()){
 				draw_elem(textures_id[12],returnX(installations[i]->getPositionX(),app),returnY(installations[i]->getPositionY(),app),0.07f);
-			}
-			if (installations[i]->getType() == munitions.getId()){
+			}else if (installations[i]->getType() == munitions.getId()){
 				draw_elem(textures_id[11],returnX(installations[i]->getPositionX(),app),returnY(installations[i]->getPositionY(),app),0.07f);
 			}
 		}
@@ -1039,11 +1072,11 @@ int main(int argc, char** argv){
 			for(int j=0;j<10;j++){
 				if(waves[i][j].isAlive()){
 					if(waves[i][j].getIdType() == 1){
-						draw_elem(textures_id[4],returnX(waves[i][j].getPositionX(), app),returnY(waves[i][j].getPositionY(), app),0.06f);
+						draw_enemy(textures_id[4],returnX(waves[i][j].getPositionX(), app),returnY(waves[i][j].getPositionY(), app),0.06f);
 					}else if(waves[i][j].getIdType() == 2){
-						draw_elem(textures_id[5],returnX(waves[i][j].getPositionX(), app),returnY(waves[i][j].getPositionY(), app),0.06f);
+						draw_enemy(textures_id[5],returnX(waves[i][j].getPositionX(), app),returnY(waves[i][j].getPositionY(), app),0.06f);
 					}else{
-						draw_elem(textures_id[6],returnX(waves[i][j].getPositionX(), app),returnY(waves[i][j].getPositionY(), app),0.06f);
+						draw_enemy(textures_id[6],returnX(waves[i][j].getPositionX(), app),returnY(waves[i][j].getPositionY(), app),0.06f);
 					}
 					if(waves[i][j].moveToNode(waves[i][j].getNextNodeX(), waves[i][j].getNextNodeY())){
 						

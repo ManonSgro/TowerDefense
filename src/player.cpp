@@ -14,9 +14,9 @@ Player::~Player(){};
 
 bool Player::isAlive(){
     if(this->pv > 0){
-        cout << "Player is alive." << endl;
+        //cout << "Player is alive." << endl;
     }else{
-        cout << "Player is dead." << endl;
+        //cout << "Player is dead." << endl;
     }
     return this->pv > 0;
 }

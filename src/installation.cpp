@@ -4,9 +4,9 @@
 #include <cmath>
 using namespace std;
 
-TypeInstallation::TypeInstallation(int id, int coeff, int portee, int price) : coeff(coeff), portee(portee), price(price)
+TypeInstallation::TypeInstallation(int id, int coeff, int portee, int price) : id(id), coeff(coeff), portee(portee), price(price)
 {
-    cout << "Create new installation with : coeff=" << coeff << "\nportee=" << portee <<"\nprix=" << price << endl; 
+    cout << "Create new installation type with : id="<< id << " coeff=" << coeff << "\nportee=" << portee <<"\nprix=" << price << endl; 
 }
 
 TypeInstallation::~TypeInstallation(){};
@@ -27,9 +27,9 @@ int TypeInstallation::getPortee(){
     return this->portee;
 }
 
-Installation::Installation(TypeInstallation type) : x(0.0), y(0.0), type(type)
+Installation::Installation(TypeInstallation myType) : x(0.0), y(0.0), type(myType)
 {
-    //cout << "Create new installation with : \nid=" << id << endl; 
+    cout << "Create new installation with : \ntype=" << this->type.getId() << endl; 
 }
 
 Installation::~Installation(){};

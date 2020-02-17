@@ -3,7 +3,7 @@
 ## Contexte
 
 Ce projet a été réalisé dans le cadre des cours Programmation et Algorithmique & Synthèse d'Image à l'IMAC.
-Il a pour objectif la réalisation du jeux Tower Défense.
+Il a pour objectif la réalisation d'un jeu type Tower Défense.
 
 ## Langages utilisés
 
